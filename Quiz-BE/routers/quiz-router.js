@@ -1,5 +1,6 @@
 
 const express = require('express');
+const User = require('../models/User');
 const router = express.Router();
 const User = require("../models/User");
 const Quiz = require("../models/Quiz");
@@ -124,6 +125,49 @@ router.get("/quiz", function (req, res) {
   });
   
 
+// GET all users
+router.get('/users', async function (req, res) {
+    console.log("GET /users");
+    const USERS = await User.find();
+    res.status(200).json({
+        users: USERS
+    });
+});
+
+// GET search user by username, else return an error
+router.get('/user/:username', async function (req, res) {
+    const name = req.body.username;
+    console.log("GET /user/" + name);
+    const USER = await User.findOne( name );
+    if (!USER) {
+        res.status(404).json({
+            error: "User with username "+ req.body.username +" not found"
+        })
+    } else {
+        res.status(200).json({
+            user: USER
+        });
+    }
+});
+
+// PUT create a new user
+router.post('/user', function (req, res) {
+    console.log("POST /user   |   " + JSON.stringify(req.body));
+
+    if (!req.body.username || !req.body.password) {
+        res.status(400).send();
+    } else {
+        const user = new User({
+            username: req.body.username,
+            password: req.body.password,
+            quizzes: []
+        });
+    
+        user.save();
+    
+        res.status(200).send();
+    }
+});
 
 module.exports = router;
 
