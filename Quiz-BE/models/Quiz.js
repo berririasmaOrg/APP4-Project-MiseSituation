@@ -1,7 +1,6 @@
 const { model, Schema } = require("mongoose");
 const quizSchema = Schema(
   {
-    quizID: { type: Number, required: true },
     quizName: { type: String, required: true },
     questions: [
       {
@@ -11,6 +10,11 @@ const quizSchema = Schema(
       },
 
     ],
+    createdBy: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
     public: { type: Boolean, default: false },
   }, { timestamps: true });
 
