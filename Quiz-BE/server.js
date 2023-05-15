@@ -19,13 +19,8 @@ const auth = require('./routers/auth-router');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-
-// use api router
 app.use('/api', api);
 app.use('/auth', auth);
-
-
-
 
 app.get('/', function (req, res) {
     res.send('hello world');
