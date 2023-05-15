@@ -38,7 +38,11 @@
     </v-app-bar>
 
     <v-main>
-      <question v-for="(q, i) in qs" class="ma-4" :key="i" :number="i" :question="q" />
+      <v-form>
+        <question v-for="(q, i) in questions" class="ma-4" :key="i" :number="i" :question="q" :corrected="corrected" />
+        <v-btn color="primary" @click="correct = true">Valider</v-btn>
+      </v-form>
+      <!--<credentials></credentials>-->
     </v-main>
   </v-app>
 </template>
@@ -46,45 +50,73 @@
 <script>
 //import HelloWorld from './components/HelloWorld';
 import Question from './components/Question';
+//import credentials from './components/credentials.vue';
 
 export default {
   name: 'App',
 
   components: {
     Question,
+    //credentials,
     //HelloWorld,
   },
 
   data: () => ({
+    correct: false,
     hey: 'Hello World',
-    qs: [{
-      title: 'This is a question title',
-      body: 'This is a question body',
+    questions: [{
+      text: "Comment je m'appelle ?",
+      answers: [{
+        answer: "Dimitri",
+        correct: false
+      },{
+        answer: "Antoine",
+        correct: true
+      },{
+        answer: "Mamady",
+        correct: false
+      },{
+        answer: "Abdré",
+        correct: false
+      },]
     },{
-      title: 'This is a question title',
-      body: 'This is a question body',
+      text: "Quel est mon âge ?",
+      answers: [{
+        answer: "20",
+        correct: false
+      },{
+        answer: "21",
+        correct: true
+      },{
+        answer: "22",
+        correct: false
+      },{
+        answer: "23",
+        correct: false
+      },]
     },{
-      title: 'This is a question title',
-      body: 'This is a question body',
-    },{
-      title: 'This is a question title',
-      body: 'This is a question body',
-    },{
-      title: 'This is a question title',
-      body: 'This is a question body',
-    },{
-      title: 'This is a question title',
-      body: 'This is a question body',
-    },{
-      title: 'This is a question title',
-      body: 'This is a question body',
-    },{
-      title: 'This is a question title',
-      body: 'This is a question body',
-    },{
-      title: 'This is a question title',
-      body: 'This is a question body',
-    },]
+      text: "Quel est mon plat préféré ?",
+      answers: [{
+        answer: "Pizza",
+        correct: true
+      },{
+        answer: "Pâte",
+        correct: false
+      },{
+        answer: "Poulet",
+        correct: false
+      },{
+        answer: "Riz",
+        correct: false
+      },]
+    }]
   }),
+
+  computed: {
+    corrected() {
+      return this.correct
+    }
+  },
+
 };
 </script>
