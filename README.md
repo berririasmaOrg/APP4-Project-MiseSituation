@@ -1,4 +1,4 @@
-# Mise-En-Situation-APP4-Info
+# 7-Quizz-Project
 
 
 
@@ -15,14 +15,14 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
-git remote add origin https://gitlab.dsi.universite-paris-saclay.fr/asma.berriri/mise-en-situation-app4-info.git
+git remote add origin https://gitlab.dsi.universite-paris-saclay.fr/app4-info-2023/7-quizz/7-quizz-project.git
 git branch -M master
 git push -uf origin master
 ```
 
 ## Integrate with your tools
 
-- [ ] [Set up project integrations](https://gitlab.dsi.universite-paris-saclay.fr/asma.berriri/mise-en-situation-app4-info/-/settings/integrations)
+- [ ] [Set up project integrations](https://gitlab.dsi.universite-paris-saclay.fr/app4-info-2023/7-quizz/7-quizz-project/-/settings/integrations)
 
 ## Collaborate with your team
 
