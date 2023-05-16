@@ -101,6 +101,7 @@
                         console.log(response);
                         if(response.data.message === "success"){
                             localStorage.setItem("userID", response.data.user._id)
+                            localStorage.setItem("token", response.data.jwt)
                             this.dialog = false;
                         }
                     }).catch(error => {
