@@ -1,6 +1,10 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
+    <v-app-bar
+      app
+      color="primary"
+      dark
+    >
       <div class="d-flex align-center">
         <v-img
           alt="Vuetify Logo"
@@ -42,53 +46,81 @@
         :number="i"
         :question="question"
       >
-        <template v-slot:correction v-if="correction.length === questions.length">
+        <template v-slot:correction v-if="correct">
           <span v-if="correction[i]" class="green--text">Bravo! C'est la bonne réponse</span>
           <span v-else class="red--text">Dommage! La bonne réponse était {{ correctAnswers(question) }}</span>
         </template>
       </question>
       <div class="d-flex flex-row mx-4">
         <v-spacer></v-spacer>
-      <v-btn v-show="correction.length !== questions.length" class="primary" @click="correctQuizz()" :disabled="!values.every(v => v.length > 0)">Valider</v-btn>
+      <v-btn v-show="!correct" class="primary" @click="correctQuizz()" :disabled="!values.every(v => v.length > 0)">Valider</v-btn>
       </div>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import Question from "./components/Question";
+//import HelloWorld from './components/HelloWorld';
+import Question from './components/Question';
+import credentials from './components/credentials.vue';
 
 export default {
   name: "App",
 
   components: {
     Question,
+    credentials,
   },
 
   data: () => ({
-    questions: [
-      {
-        text: "Comment je m'appelle ?",
-        answers: [
-          {
-            answer: "Dimitri",
-            correct: false,
-          },
-          {
-            answer: "Antoine",
-            correct: false,
-          },
-          {
-            answer: "Mamady",
-            correct: true,
-          },
-          {
-            answer: "André",
-            correct: false,
-          },
-        ],
-      },
-    ],
+    correct: false,
+    hey: 'Hello World',
+    questions: [{
+      text: "Comment je m'appelle ?",
+      answers: [{
+        answer: "Dimitri",
+        correct: false
+      },{
+        answer: "Antoine",
+        correct: true
+      },{
+        answer: "Mamady",
+        correct: false
+      },{
+        answer: "Abdré",
+        correct: false
+      },]
+    },{
+      text: "Quel est mon âge ?",
+      answers: [{
+        answer: "20",
+        correct: false
+      },{
+        answer: "21",
+        correct: true
+      },{
+        answer: "22",
+        correct: false
+      },{
+        answer: "23",
+        correct: false
+      },]
+    },{
+      text: "Quel est mon plat préféré ?",
+      answers: [{
+        answer: "Pizza",
+        correct: true
+      },{
+        answer: "Pâte",
+        correct: false
+      },{
+        answer: "Poulet",
+        correct: false
+      },{
+        answer: "Riz",
+        correct: false
+      },]
+    }],
     values: [[]],
     correction: []
   }),
@@ -111,7 +143,9 @@ export default {
           this.isCorrect(this.correctAnswers(this.questions[i]), this.values[i])
         );
       }
+      this.correct=true;
     },
   },
+
 };
 </script>
