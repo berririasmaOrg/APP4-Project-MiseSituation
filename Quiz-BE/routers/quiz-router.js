@@ -2,10 +2,10 @@
 const express = require('express');
 const User = require('../models/User');
 const router = express.Router();
-const User = require("../models/User");
 const Quiz = require("../models/Quiz");
 const Question = require("../models/Question");
 const Answer = require("../models/Answer");
+const Game = require("../models/Game");
 
 const authenticate = require('../middlewares/authentication-mw');
 
@@ -150,7 +150,7 @@ router.get('/user/:username', async function (req, res) {
     }
 });
 
-// PUT create a new user
+// POST create a new user
 router.post('/user', function (req, res) {
     console.log("POST /user   |   " + JSON.stringify(req.body));
 

@@ -15,6 +15,13 @@ const quizSchema = Schema(
       ref: "User",
       required: true,
     },
+    games: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Quiz",
+        required: true
+      }
+    ],
     public: { type: Boolean, default: false },
   }, { timestamps: true });
 
