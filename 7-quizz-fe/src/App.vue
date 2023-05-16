@@ -1,10 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
+    <v-app-bar app color="primary" dark>
       <div class="d-flex align-center">
         <v-img
           alt="Vuetify Logo"
@@ -38,53 +34,84 @@
     </v-app-bar>
 
     <v-main>
-      <question v-for="(q, i) in qs" class="ma-4" :key="i" :number="i" :question="q" />
+      <question :disable="correction.length === questions.length"
+        v-for="(question, i) in questions"
+        v-model="values[i]"
+        class="ma-4"
+        :key="i"
+        :number="i"
+        :question="question"
+      >
+        <template v-slot:correction v-if="correction.length === questions.length">
+          <span v-if="correction[i]" class="green--text">Bravo! C'est la bonne réponse</span>
+          <span v-else class="red--text">Dommage! La bonne réponse était {{ correctAnswers(question) }}</span>
+        </template>
+      </question>
+      <div class="d-flex flex-row mx-4">
+        <v-spacer></v-spacer>
+      <v-btn v-show="correction.length !== questions.length" class="primary" @click="correctQuizz()" :disabled="!values.every(v => v.length > 0)">Valider</v-btn>
+      </div>
     </v-main>
   </v-app>
 </template>
 
 <script>
-//import HelloWorld from './components/HelloWorld';
-import Question from './components/Question';
+import Question from "./components/Question";
 
 export default {
-  name: 'App',
+  name: "App",
 
   components: {
     Question,
-    //HelloWorld,
   },
 
   data: () => ({
-    hey: 'Hello World',
-    qs: [{
-      title: 'This is a question title',
-      body: 'This is a question body',
-    },{
-      title: 'This is a question title',
-      body: 'This is a question body',
-    },{
-      title: 'This is a question title',
-      body: 'This is a question body',
-    },{
-      title: 'This is a question title',
-      body: 'This is a question body',
-    },{
-      title: 'This is a question title',
-      body: 'This is a question body',
-    },{
-      title: 'This is a question title',
-      body: 'This is a question body',
-    },{
-      title: 'This is a question title',
-      body: 'This is a question body',
-    },{
-      title: 'This is a question title',
-      body: 'This is a question body',
-    },{
-      title: 'This is a question title',
-      body: 'This is a question body',
-    },]
+    questions: [
+      {
+        text: "Comment je m'appelle ?",
+        answers: [
+          {
+            answer: "Dimitri",
+            correct: false,
+          },
+          {
+            answer: "Antoine",
+            correct: false,
+          },
+          {
+            answer: "Mamady",
+            correct: true,
+          },
+          {
+            answer: "André",
+            correct: false,
+          },
+        ],
+      },
+    ],
+    values: [[]],
+    correction: []
   }),
+
+  methods: {
+    isCorrect(answers, selected) {
+      if (answers.length !== selected.length) return false;
+      for (const choice of selected)
+        if (!answers.includes(choice)) return false;
+      return true;
+    },
+
+    correctAnswers(question) {
+      return question.answers.filter((a) => a.correct).map((a) => a.answer);
+    },
+
+    correctQuizz() {
+      for (const i in this.values) {
+        this.correction.push(
+          this.isCorrect(this.correctAnswers(this.questions[i]), this.values[i])
+        );
+      }
+    },
+  },
 };
 </script>
