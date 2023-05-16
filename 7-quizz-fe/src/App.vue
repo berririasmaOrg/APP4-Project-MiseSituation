@@ -38,44 +38,35 @@
     </v-app-bar>
 
     <v-main>
-      <question :disable="correction.length === questions.length"
-        v-for="(question, i) in questions"
-        v-model="values[i]"
-        class="ma-4"
-        :key="i"
-        :number="i"
-        :question="question"
-      >
-        <template v-slot:correction v-if="correct">
-          <span v-if="correction[i]" class="green--text">Bravo! C'est la bonne réponse</span>
-          <span v-else class="red--text">Dommage! La bonne réponse était {{ correctAnswers(question) }}</span>
-        </template>
-      </question>
-      <div class="d-flex flex-row mx-4">
-        <v-spacer></v-spacer>
-      <v-btn v-show="!correct" class="primary" @click="correctQuizz()" :disabled="!values.every(v => v.length > 0)">Valider</v-btn>
-      </div>
+      <v-form>
+        <question v-for="(q, i) in questions" class="ma-4" :key="i" :number="i" :question="q" :corrected="corrected" />
+        <v-btn color="primary" @click="correct = true">Valider</v-btn>
+      </v-form>
       <credentials></credentials>
     </v-main>
   </v-app>
 </template>
 
 <script>
-//import HelloWorld from './components/HelloWorld';
-import Question from './components/Question';
+//import Question from './components/Question';
 import credentials from './components/credentials.vue';
+import createQuizz from './components/createQuizz.vue';
+import createQuestion from './components/createQuestion.vue';
 
 export default {
   name: "App",
 
   components: {
-    Question,
+    //Question,
     credentials,
+    createQuizz,
+    createQuestion
   },
 
   data: () => ({
     correct: false,
-    hey: 'Hello World',
+    q: false,
+    quizzID: 0,
     questions: [{
       text: "Comment je m'appelle ?",
       answers: [{

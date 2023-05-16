@@ -5,9 +5,9 @@
                 <div>
                     <v-tabs v-model="tab" show-arrows background-color="deep-purple accent-4" icons-and-text dark grow>
                         <v-tabs-slider color="purple darken-4"></v-tabs-slider>
-                        <v-tab v-for="i in tabs" :key="i">
-                            <v-icon large>{{ i.icon }}</v-icon>
-                            <div class="caption py-1">{{ i.name }}</div>
+                        <v-tab v-for="(c, i) in tabs" :key="i">
+                            <v-icon large>{{ c.icon }}</v-icon>
+                            <div class="caption py-1">{{ c.name }}</div>
                         </v-tab>
                         <v-tab-item>
                             <v-card class="px-4">
@@ -73,14 +73,17 @@
         },
         methods: {
             register() {
-                if (this.$refs.registerForm.register()) {
+                if (this.$refs.registerForm.validate()) {
                     // submit form to server/API here with axios
                     const data = {
-                        name: this.registerName,
+                        username: this.registerName,
                         password: this.registerPassword
                     };
-                    axios.post("https://9316-193-55-29-173.ngrok-free.app/user", data).then(response => {
+                    axios.post("https://cb87-81-64-10-126.ngrok-free.app/auth/signup", data).then(response => {
                         console.log(response);
+                        if(response.status === 200){
+                            this.reset();
+                        }
                     }).catch(error => {
                         console.log(error);
                     })
@@ -88,22 +91,27 @@
                 }
             },
             login() {
-                if (this.$refs.loginForm.login()) {
+                if (this.$refs.loginForm.validate()) {
                     // submit form to server/API here with axios
                     const data = {
-                        name: this.loginName,
+                        username: this.loginName,
                         password: this.loginPassword
                     };
-                    axios.post("", data).then(response => {
+                    axios.post("https://cb87-81-64-10-126.ngrok-free.app/auth/login", data).then(response => {
                         console.log(response);
+                        if(response.data.message === "success"){
+                            localStorage.setItem("userID", response.data.user._id)
+                            localStorage.setItem("token", response.data.jwt)
+                            this.dialog = false;
+                        }
                     }).catch(error => {
                         console.log(error);
                     })
-                    
                 }
             },
             reset() {
-                this.$refs.form.reset();
+                this.$refs.registerForm.reset();
+                this.$refs.loginForm.reset();
             },
             resetValidation() {
                 this.$refs.form.resetValidation();
