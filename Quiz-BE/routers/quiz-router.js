@@ -4,6 +4,7 @@ const router = express.Router();
 const Quiz = require("../models/Quiz");
 const Question = require("../models/Question");
 const Answer = require("../models/Answer");
+const Game = require("../models/Game");
 
 const authenticate = require("../middlewares/authentication-mw");
 

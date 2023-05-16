@@ -10,7 +10,14 @@ const userSchema = Schema(
         ref: "Quiz",
         required: true,
       },
-    ], 
+    ],
+    games: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Game",
+        required: true
+      }
+    ] 
   },
   { timestamps: true }
 );

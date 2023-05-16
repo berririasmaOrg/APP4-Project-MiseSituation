@@ -7,6 +7,7 @@ const User = require('./models/User');
 const Question = require('./models/Question');
 const Answer = require('./models/Answer');
 const Quiz = require('./models/Quiz');
+const Game = require('./models/Game');
 
 // connect to mongodb
 require('./db/mongoose-connect');
