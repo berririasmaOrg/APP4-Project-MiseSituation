@@ -42,7 +42,7 @@
         <question v-for="(q, i) in questions" class="ma-4" :key="i" :number="i" :question="q" :corrected="corrected" />
         <v-btn color="primary" @click="correct = true">Valider</v-btn>
       </v-form>
-      <!--<credentials></credentials>-->
+      <credentials></credentials>
     </v-main>
   </v-app>
 </template>
@@ -50,14 +50,14 @@
 <script>
 //import HelloWorld from './components/HelloWorld';
 import Question from './components/Question';
-//import credentials from './components/credentials.vue';
+import credentials from './components/credentials.vue';
 
 export default {
   name: 'App',
 
   components: {
     Question,
-    //credentials,
+    credentials,
     //HelloWorld,
   },
 
