@@ -55,6 +55,7 @@
         <v-spacer></v-spacer>
       <v-btn v-show="!correct" class="primary" @click="correctQuizz()" :disabled="!values.every(v => v.length > 0)">Valider</v-btn>
       </div>
+      <credentials></credentials>
     </v-main>
   </v-app>
 </template>
