@@ -38,11 +38,13 @@
     </v-app-bar>
 
     <v-main>
+      <credentials></credentials>
+
       <v-form>
         <question v-for="(q, i) in questions" class="ma-4" :key="i" :number="i" :question="q" :corrected="corrected" />
         <v-btn color="primary" @click="correct = true">Valider</v-btn>
       </v-form>
-      <credentials></credentials>
+      
     </v-main>
   </v-app>
 </template>
