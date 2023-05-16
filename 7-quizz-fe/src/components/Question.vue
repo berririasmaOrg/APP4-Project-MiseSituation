@@ -51,11 +51,7 @@ export default {
         this.$emit("input", value);
       },
     },
-  },
-
-  data: () => ({
-    hey: "Hello World",
-  }),
+  }
 };
 </script>
 
