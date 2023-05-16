@@ -38,9 +38,12 @@
     </v-app-bar>
 
     <v-main>
-      <!--<credentials></credentials>-->
+      <createQuizz class="ma-4" v-model="quizzID"></createQuizz>
+      <v-btn color="primary" @click="q = true">+</v-btn>
 
-      <createQuizz class="ma-4"></createQuizz>
+      <createQuestion :questForm="q" :quizzID="quizzID"></createQuestion>
+
+      <credentials></credentials>
 
       <!--<v-btn color="primary" @click="">Créer Quizz</v-btn>-->
       <!--<v-form>
@@ -54,20 +57,24 @@
 
 <script>
 //import Question from './components/Question';
-//import credentials from './components/credentials.vue';
+import credentials from './components/credentials.vue';
 import createQuizz from './components/createQuizz.vue';
+import createQuestion from './components/createQuestion.vue';
 
 export default {
   name: 'App',
 
   components: {
     //Question,
-    //credentials,
-    createQuizz
+    credentials,
+    createQuizz,
+    createQuestion
   },
 
   data: () => ({
     correct: false,
+    q: false,
+    quizzID: 0,
     /*questions: [{
       text: "Comment je m'appelle ?",
       answers: [{

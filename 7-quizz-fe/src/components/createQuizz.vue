@@ -43,6 +43,9 @@ import axios from "axios";
 
 export default {
     name: 'CreateQuizzComponent',
+    props: {
+        value: String
+    },
     methods: {
         createQuizz() {
             if (this.$refs.createForm.validate()) {
@@ -50,13 +53,14 @@ export default {
                 const data = {
                     quizName: this.quizzName,
                     public: this.publique,
-                    createdBy: "64620718baa6746205018d44"
+                    createdBy: localStorage.getItem("userID")
                 };
                 axios.post("https://cb87-81-64-10-126.ngrok-free.app/api/create-quiz", data).then(response => {
                     console.log(response);
-                    /*if(response.status === 200){
-                        
-                    }*/
+                    if(response.status === 200){
+                        this.quizzID = response.data._id;
+                        this.$emit('input', this.quizzID);
+                    }
                 }).catch(error => {
                     console.log(error);
                 })
@@ -68,6 +72,7 @@ export default {
       valid: false,
       publique: false,
       quizzName: '',
+      quizzID: '',
       nameRules: [
         value => {
           if (value) return true

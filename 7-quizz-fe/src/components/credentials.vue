@@ -79,7 +79,7 @@
                         username: this.registerName,
                         password: this.registerPassword
                     };
-                    axios.post("https://f463-193-55-29-173.ngrok-free.app/auth/signup", data).then(response => {
+                    axios.post("https://cb87-81-64-10-126.ngrok-free.app/auth/signup", data).then(response => {
                         console.log(response);
                         if(response.status === 200){
                             this.reset();
@@ -97,9 +97,10 @@
                         username: this.loginName,
                         password: this.loginPassword
                     };
-                    axios.post("https://f463-193-55-29-173.ngrok-free.app/auth/login", data).then(response => {
+                    axios.post("https://cb87-81-64-10-126.ngrok-free.app/auth/login", data).then(response => {
                         console.log(response);
                         if(response.data.message === "success"){
+                            localStorage.setItem("userID", response.data.user._id)
                             this.dialog = false;
                         }
                     }).catch(error => {
