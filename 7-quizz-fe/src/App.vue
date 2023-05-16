@@ -38,35 +38,37 @@
     </v-app-bar>
 
     <v-main>
-      <credentials></credentials>
+      <!--<credentials></credentials>-->
 
-      <v-form>
+      <createQuizz class="ma-4"></createQuizz>
+
+      <!--<v-btn color="primary" @click="">Créer Quizz</v-btn>-->
+      <!--<v-form>
         <question v-for="(q, i) in questions" class="ma-4" :key="i" :number="i" :question="q" :corrected="corrected" />
         <v-btn color="primary" @click="correct = true">Valider</v-btn>
-      </v-form>
-      
+      </v-form>-->
+
     </v-main>
   </v-app>
 </template>
 
 <script>
-//import HelloWorld from './components/HelloWorld';
-import Question from './components/Question';
-import credentials from './components/credentials.vue';
+//import Question from './components/Question';
+//import credentials from './components/credentials.vue';
+import createQuizz from './components/createQuizz.vue';
 
 export default {
   name: 'App',
 
   components: {
-    Question,
-    credentials,
-    //HelloWorld,
+    //Question,
+    //credentials,
+    createQuizz
   },
 
   data: () => ({
     correct: false,
-    hey: 'Hello World',
-    questions: [{
+    /*questions: [{
       text: "Comment je m'appelle ?",
       answers: [{
         answer: "Dimitri",
@@ -111,7 +113,7 @@ export default {
         answer: "Riz",
         correct: false
       },]
-    }]
+    }]*/
   }),
 
   computed: {
