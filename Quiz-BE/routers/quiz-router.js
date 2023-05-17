@@ -15,7 +15,7 @@ router.get("/quiz", function (req, res) {
   console.log("GET /quiz");
   // Récupérer les filtres depuis la requête
   const filters = req.query;
-  const quizs = Quiz.find(filters)
+  Quiz.find(filters).populate("createdBy", "username")
     .then((data) => {
       res.send(data);
     })
@@ -61,7 +61,7 @@ router.get("/quiz/:id", function (req, res) {
   console.log("GET /quiz/:id");
   const id = req.params.id;
 
-  Quiz.findById(id)
+  Quiz.findById(id).populate("createdBy", "username")
     .then((data) => {
       if (!data)
         res.status(404).send({ message: "Not found Quiz with id " + id });
@@ -77,7 +77,7 @@ router.get("/quiz/:id", function (req, res) {
  */
 router.get("/quiz/:quizId/questions", (req, res) => {
   const quizId = req.params.quizId;
-
+  console.log("GET /quiz/" + quizId + "/questions");
   // Vérifier si le quiz existe
   Quiz.findById(quizId)
     .populate({
@@ -97,12 +97,10 @@ router.get("/quiz/:quizId/questions", (req, res) => {
       // Récupérer toutes les questions et réponses associées
       const questions = quiz.questions;
 
-      res
-        .status(200)
-        .json({
-          message: "Questions and answers retrieved successfully",
-          questions,
-        });
+      res.status(200).json({
+        message: "Questions and answers retrieved successfully",
+        questions,
+      });
     })
     .catch((err) => {
       res.status(500).json({ message: "Error finding quiz", error: err });
@@ -114,7 +112,7 @@ router.get("/quiz/:quizId/questions", (req, res) => {
  */
 router.post("/question", (req, res) => {
   const { quizId, question, answers } = req.body;
-
+  console.log("POST /question   |   " + JSON.stringify(req.body));
   // Vérifier si le quiz existe
   Quiz.findById(quizId)
     .then((quiz) => {
@@ -149,12 +147,10 @@ router.post("/question", (req, res) => {
               quiz.questions.push(createdQuestion._id);
               quiz.save();
 
-              res
-                .status(201)
-                .json({
-                  message: "Question added to quiz successfully",
-                  question: createdQuestion,
-                });
+              res.status(201).json({
+                message: "Question added to quiz successfully",
+                question: createdQuestion,
+              });
             })
             .catch((err) => {
               res
@@ -208,7 +204,6 @@ router.post("/user", function (req, res) {
     const user = new User({
       username: req.body.username,
       password: req.body.password,
-      quizzes: [],
     });
 
     user.save();
@@ -222,7 +217,7 @@ router.post("/user", function (req, res) {
  */
 router.post("/game", (req, res) => {
   const { quizId, userId } = req.body;
-
+  console.log("POST /game   |   " + JSON.stringify(req.body));
   // Vérifier si le quiz et l'utilisateur existent
   Promise.all([Quiz.findById(quizId), User.findById(userId)])
     .then(([quiz, user]) => {
@@ -266,7 +261,7 @@ router.post("/game", (req, res) => {
  */
 router.put("/game", (req, res) => {
   const { gameId, score } = req.body;
-
+  console.log("PUT /game   |   " + JSON.stringify(req.body));
   // Vérifier si la partie existe
   Game.findById(gameId)
     .then((game) => {
@@ -310,7 +305,7 @@ router.put("/game", (req, res) => {
  */
 router.get("/quiz/:quizId/ranking", (req, res) => {
   const quizId = req.params.quizId;
-
+  console.log("GET /quiz/" + quizId + "/ranking");
   // Récupérer toutes les parties terminées pour le quiz donné
   Game.find({ quiz: quizId, time: { $exists: true } })
     .populate("user", "username")
@@ -330,11 +325,11 @@ router.get("/quiz/:quizId/ranking", (req, res) => {
 });
 
 /**
- * GET ranking for a user
+ * GET ranking of user
  */
 router.get("/user/:userId/ranking", (req, res) => {
   const userId = req.params.userId;
-
+  console.log("GET /user/" + userId + "/ranking");
   // Récupérer tous les quizzes
   Quiz.find()
     .then((quizzes) => {
