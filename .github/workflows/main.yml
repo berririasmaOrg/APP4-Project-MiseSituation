@@ -1,0 +1,19 @@
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 18.x
+      # - name : Install FE dependencies will be added later
+      #   run: cd 7-quizz-fe && npm install      
+      - name : Install BE dependencies
+        run: cd Quiz-BE && npm install
+      - name: Run tests
+        run: npm run test
+      # - name: Run lint will be added later
+      #   run: npm run lint
+
+# SonarCloud Automatic Analysis added through in-account configuration
