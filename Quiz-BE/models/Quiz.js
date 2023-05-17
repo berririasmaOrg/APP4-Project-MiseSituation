@@ -8,22 +8,15 @@ const quizSchema = Schema(
         ref: "Question",
         required: true,
       },
-
     ],
     createdBy: {
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    games: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Quiz",
-        required: true
-      }
-    ],
     public: { type: Boolean, default: false },
-  }, { timestamps: true });
-
+  },
+  { timestamps: true }
+);
 
 module.exports = model("Quiz", quizSchema);
