@@ -6,7 +6,7 @@
         </v-card-title>
         <v-card-text>
             <div v-if=questForm>
-                <v-btn color="primary">Jouer</v-btn>
+                <v-btn color="primary" @click="toGame()">Jouer</v-btn>
             </div>
             <div v-if=!questForm>
                 <v-btn color="primary" @click="question = true">Ajouter question</v-btn>
@@ -32,6 +32,9 @@
     methods: {
         closeWindow() {
             this.$emit("close");
+        },
+        toGame() {
+            this.$router.push({path: '/game'});
         },
     },
   

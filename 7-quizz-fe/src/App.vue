@@ -41,29 +41,12 @@
               </div>
         </v-app>
     </div>
-      <!--<createQuizz class="ma-4" v-model="quizzID"></createQuizz>
-      <v-btn color="primary" @click="q = true">+</v-btn>
-
-      <createQuestion :questForm="q" :quizzID="quizzID"></createQuestion>-->
-
-      <!--<credentials></credentials>-->
-
-      <!--<v-btn color="primary" @click="">Créer Quizz</v-btn>-->
-      <!--<v-form>
-        <question v-for="(q, i) in questions" class="ma-4" :key="i" :number="i" :question="q" :corrected="corrected" />
-        <v-btn color="primary" @click="correct = true">Valider</v-btn>
-      </v-form>-->
-
     </v-main>
   </v-app>
 </template>
 
 <script>
-//import Question from './components/Question';
-//import credentials from './components/credentials.vue';
 import createQuizz from './components/createQuizz.vue';
-//import createQuestion from './components/createQuestion.vue';
-//import {getAllQuiz} from "./api-request"
 import Quizz from "./components/Quizz.vue";
 import { getAllQuiz } from "./api-request"
 
