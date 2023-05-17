@@ -1,4 +1,5 @@
 <template>
+    <div>
     <v-card>
         <v-card-title>
             <h3>Création d'un Quizz</h3>
@@ -36,17 +37,35 @@
             </v-container>
         </v-form>
     </v-card>
+    <quizz v-for="(q, i) in quizzList" class="ma-4" :key="i" :number="i" :quizz="q"/>
+    </div>
 </template>
 
 <script>
 import axios from "axios";
+import Quizz from "../components/Quizz.vue";
 
 export default {
     name: 'CreateQuizzComponent',
     props: {
-        value: String
+        value: Number
+    },
+    created() {
+        this.getQuizz();
+    },
+    components: {
+        Quizz
     },
     methods: {
+        async getQuizz() {
+            axios.get(`http://localhost:3000/api/quiz?createdBy=${localStorage.getItem("userID")}`).then(response => {
+                console.log(response);
+                this.quizzList = response.data;
+            }).catch(error => {
+                console.log(error);
+            })
+            console.log(this.quizzList);
+        },
         createQuizz() {
             if (this.$refs.createForm.validate()) {
                 // submit form to server/API here with axios
@@ -55,11 +74,12 @@ export default {
                     public: this.publique,
                     createdBy: localStorage.getItem("userID")
                 };
-                axios.post("https://cb87-81-64-10-126.ngrok-free.app/api/create-quiz", data).then(response => {
+                axios.post("http://localhost:3000/api/create-quiz", data).then(response => {
                     console.log(response);
                     if(response.status === 200){
                         this.quizzID = response.data._id;
                         this.$emit('input', this.quizzID);
+                        this.getQuizz();
                     }
                 }).catch(error => {
                     console.log(error);
@@ -73,6 +93,7 @@ export default {
       publique: false,
       quizzName: '',
       quizzID: '',
+      quizzList: [],
       nameRules: [
         value => {
           if (value) return true

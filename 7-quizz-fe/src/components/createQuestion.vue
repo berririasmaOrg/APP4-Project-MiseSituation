@@ -1,8 +1,5 @@
 <template>    
-    <div id="app">
-        <v-app>
-            <div v-if=questForm>
-                <v-dialog v-model="dialog" persistent max-width="600px" min-width="500px">
+    <div>
                     <div>
                         <v-card class="px-4">
                             <v-card-text>
@@ -116,9 +113,6 @@
                             </v-card-text>
                         </v-card>
                     </div>
-                </v-dialog>
-            </div>
-        </v-app>
     </div>
 </template>
 
@@ -129,13 +123,17 @@ export default {
     name: 'CreateQuizzComponent',
     
     props: {
-        questForm: {
+        value: {
             type: Boolean,
             default: false,
         },
         quizzID: {
             type: String,
             default: "",
+        },
+        question: {
+            type: Boolean,
+            default: false,
         }
     },
     methods: {
@@ -164,11 +162,11 @@ export default {
                         }
                     ] 
                 };
-                axios.post("https://cb87-81-64-10-126.ngrok-free.app/api/question", data).then(response => {
+                axios.post("http://localhost:3000/api/question", data).then(response => {
                     console.log(response);
-                    if(response.status === 200){
+                    if(response.status === 201){
                         this.questionID = response.data._id;
-                        this.dialog = false;
+                        this.closeWindow();
                     }
                 }).catch(error => {
                     console.log(error);
@@ -177,7 +175,7 @@ export default {
             }
         },
         closeWindow(){
-            this.dialog = false;
+            this.$emit('input', false);
         }
     },
     data: () => ({
@@ -224,4 +222,6 @@ export default {
 
 </script>
 
-<style></style>
+<style>
+
+</style>
