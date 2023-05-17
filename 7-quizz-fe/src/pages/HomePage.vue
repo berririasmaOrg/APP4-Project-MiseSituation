@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <div>Page d'accueil</div>
-    <v-btn @click="toGame()">Historique</v-btn>
+  <div class="text-center">
+    <h1 class="text-center">Bienvenue dans 7Quizz</h1>
+    <div><v-btn @click="$router.push({path: '/create'})">Voir les quiz</v-btn></div>
   </div>
 </template>
 

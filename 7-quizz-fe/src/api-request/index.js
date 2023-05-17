@@ -47,3 +47,7 @@ export async function getUserByUsername(username){
 export async function createUser(username,password){
     return (await HTTP.post('user', { username, password })).data;
 }
+
+export async function saveGame(gameId, score) {
+    await HTTP.put('game', { gameId, score });
+}

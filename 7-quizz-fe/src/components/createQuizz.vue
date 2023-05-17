@@ -58,7 +58,7 @@ export default {
     },
     methods: {
         async getQuizz() {
-            axios.get(`http://localhost:3000/api/quiz?createdBy=${localStorage.getItem("userID")}`).then(response => {
+            axios.get(`http://localhost:3000/api/quiz?createdBy=${localStorage.getItem("userId")}`).then(response => {
                 console.log(response);
                 this.quizzList = response.data;
             }).catch(error => {
@@ -72,7 +72,7 @@ export default {
                 const data = {
                     quizName: this.quizzName,
                     public: this.publique,
-                    createdBy: localStorage.getItem("userID")
+                    createdBy: localStorage.getItem("userId")
                 };
                 axios.post("http://localhost:3000/api/create-quiz", data).then(response => {
                     console.log(response);

@@ -1,23 +1,39 @@
 # 7-Quizz-Project
 
-## Description
-Quizz app
+## Setup
+Too install & ulaunch this application you will need
+    
+- Node 18
+- Vue js
 
 ## Installation
 Setup-ing project (for devs):
+
     - git clone/pull
+
+
+### Serveur
     - cd Quiz-BE
     - npm install
     - node server.js
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+### Application
+    - cd 7-quizz-fe
+    - npm install
+    - npm run serve
+
 
 ## Authors and acknowledgment
 Adesh CANNOU
+
 Antoine HAMEAU
+
 Julia GILLE
+
 Jules ROCHETEAU
+
 Solène HIRLÈS
+
 Anis BOUDIAF
+
 Mamady BARADJI

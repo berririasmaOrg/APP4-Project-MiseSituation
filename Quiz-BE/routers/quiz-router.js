@@ -31,6 +31,7 @@ router.get("/quiz", function (req, res) {
  */
 router.post("/create-quiz", function (req, res) {
   console.log("POST /create-quiz");
+  console.log(req.body)
   if (!req.body) {
     res.status(400).send({ message: "Content can not be empty!" });
     return;
@@ -48,6 +49,7 @@ router.post("/create-quiz", function (req, res) {
       res.send(data);
     })
     .catch((err) => {
+        console.error(err)
       res.status(500).send({
         message: err.message || "Some error occurred while creating the Quiz.",
       });

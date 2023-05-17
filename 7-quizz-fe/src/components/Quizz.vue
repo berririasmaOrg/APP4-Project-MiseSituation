@@ -20,7 +20,9 @@
   </template>
   
   <script>
+  import {getQuestionsByQuizId} from "../api-request"
   import createQuestion from '../components/createQuestion.vue';
+  import { mapActions } from 'vuex'
 
   export default {
     name: "QuizzComponent",
@@ -30,10 +32,17 @@
     },
 
     methods: {
+      ...mapActions({
+        setQuizInfo: "setQuizInfo",
+        setQuizData: "setQuizData",
+      }),
         closeWindow() {
             this.$emit("close");
         },
-        toGame() {
+        async toGame() {
+          const data = await getQuestionsByQuizId(this.quizz._id);
+            this.setQuizInfo(this.quizz);
+          this.setQuizData(data);
             this.$router.push({path: '/game'});
         },
     },
