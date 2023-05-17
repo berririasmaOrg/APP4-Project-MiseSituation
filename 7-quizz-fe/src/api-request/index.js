@@ -25,7 +25,7 @@ export async function createQuiz(){
 }
 
 export async function getQuizById(quizId){
-    return (await HTTP.get('quiz',quizId)).data;
+    return (await HTTP.get(`quiz/${quizId}`)).data;
 }
 
 export async function updateQuizById(quizId){

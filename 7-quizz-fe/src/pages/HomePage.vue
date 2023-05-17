@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>Page d'accueil</div>
-    <v-btn @click="toHistory()">Historique</v-btn>
+    <v-btn @click="toGame()">Historique</v-btn>
   </div>
 </template>
 
@@ -12,6 +12,9 @@ export default {
   methods: {
     toHistory() {
       this.$router.push({path: '/history'})
+    },
+    toGame() {
+      this.$router.push({path: '/game'})
     }
   }
 }

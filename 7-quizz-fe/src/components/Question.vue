@@ -5,7 +5,7 @@
         <h3>{{ `Question #${number}` }}</h3>
       </v-card-title>
       <v-card-text>
-        <p>{{ question.text }}</p>
+        <p>{{ question.question }}</p>
         <v-checkbox
             :disabled="disable"
           v-model="response"

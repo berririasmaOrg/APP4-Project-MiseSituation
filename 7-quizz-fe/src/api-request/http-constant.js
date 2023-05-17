@@ -1,13 +1,14 @@
 import axios from "axios";
 
-const baseURL = "http://localhost:3000/" //"https://cb87-81-64-10-126.ngrok-free.app/";
+//const baseURL = "https://c863-193-55-29-172.ngrok-free.app/";
+const baseURLHost = "http://localhost:3000/";
 
-const http = axios.create({ baseURL: `${baseURL}api/`});
-const auth = axios.create({ baseURL: `${baseURL}auth/`});
+const http = axios.create({ baseURL: `${baseURLHost}api/`});
+const auth = axios.create({ baseURL: `${baseURLHost}auth/`});
 
 http.interceptors.request.use(request => {
     const t = localStorage.getItem("token");
-    if(t) request.headers.common.Authorization = `Bearer ${t}`;
+    if(t) request.headers.Authorization = `Bearer ${t}`;
     return request;
 })
 
