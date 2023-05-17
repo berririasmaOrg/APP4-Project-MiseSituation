@@ -5,7 +5,15 @@ export async function signUp(data) {
 }
 
 export async function login(data) {
-    await AUTH.post("login", data)
+    const res = (await AUTH.post("login", data)).data
+    localStorage.setItem("userId", res.user._id)
+    localStorage.setItem("token", res.jwt)
+}
+
+export async function logout() {
+    await AUTH.post("logout");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("token");
 }
 
 export async function getAllQuiz(){

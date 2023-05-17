@@ -62,7 +62,8 @@
 </template>
 
 <script>
-    import axios from "axios";
+    //import axios from "axios";
+    import { signUp, login } from "../api-request"
 
     export default {
         name: "CredentialsComponent",
@@ -72,41 +73,38 @@
             }
         },
         methods: {
-            register() {
+            async register() {
                 if (this.$refs.registerForm.validate()) {
                     // submit form to server/API here with axios
                     const data = {
                         username: this.registerName,
                         password: this.registerPassword
                     };
-                    axios.post("https://cb87-81-64-10-126.ngrok-free.app/auth/signup", data).then(response => {
-                        console.log(response);
-                        if(response.status === 200){
-                            this.reset();
-                        }
-                    }).catch(error => {
-                        console.log(error);
-                    })
-                    
+                    await signUp(data);
+                    await login(data);
+                    this.dialog = false;
                 }
             },
-            login() {
+            async login() {
                 if (this.$refs.loginForm.validate()) {
                     // submit form to server/API here with axios
                     const data = {
                         username: this.loginName,
                         password: this.loginPassword
                     };
-                    axios.post("https://cb87-81-64-10-126.ngrok-free.app/auth/login", data).then(response => {
+                    await login(data);
+                    this.dialog = false;
+                    /*axios.post("", data).then(response => {
                         console.log(response);
                         if(response.data.message === "success"){
                             localStorage.setItem("userID", response.data.user._id)
                             localStorage.setItem("token", response.data.jwt)
-                            this.dialog = false;
+
                         }
                     }).catch(error => {
                         console.log(error);
-                    })
+                    })*/
+                    
                 }
             },
             reset() {

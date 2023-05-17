@@ -1,1 +1,4 @@
 node_modules
+package-lock.json
+7-quizz-fe/package-lock.json
+Quiz-BE/package-lock.json

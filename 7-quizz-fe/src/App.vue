@@ -38,20 +38,14 @@
     </v-app-bar>
 
     <v-main>
-      <v-form>
-        <question v-for="(q, i) in questions" class="ma-4" :key="i" :number="i" :question="q" :corrected="corrected" />
-        <v-btn color="primary" @click="correct = true">Valider</v-btn>
-      </v-form>
-      <credentials></credentials>
+      <credentials v-if="!token"></credentials>
+      <router-view></router-view>
     </v-main>
   </v-app>
 </template>
 
 <script>
-//import Question from './components/Question';
 import credentials from './components/credentials.vue';
-import createQuizz from './components/createQuizz.vue';
-import createQuestion from './components/createQuestion.vue';
 
 export default {
   name: "App",
@@ -59,8 +53,8 @@ export default {
   components: {
     //Question,
     credentials,
-    createQuizz,
-    createQuestion
+    //createQuizz,
+    //createQuestion
   },
 
   data: () => ({
@@ -116,6 +110,12 @@ export default {
     values: [[]],
     correction: []
   }),
+
+  computed: {
+    token() {
+      return localStorage.getItem("token");
+    }
+  },
 
   methods: {
     isCorrect(answers, selected) {
